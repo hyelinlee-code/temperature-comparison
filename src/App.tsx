@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchWeather, reverseGeocode, WeatherData, getWeatherType, formatTemp } from "./lib/weather";
 import { WeatherVisuals } from "./components/WeatherVisuals";
 import { motion, AnimatePresence } from "motion/react";
-import { MapPin, Thermometer, ThermometerSun, ThermometerSnowflake, Settings, RefreshCcw } from "lucide-react";
+import { MapPin, Thermometer, ThermometerSun, ThermometerSnowflake, Settings, RefreshCcw, Linkedin } from "lucide-react";
 
 function AnimatedTemp({ temp, unit, showUnit = false, showDegree = true }: { temp: number, unit: 'C' | 'F', showUnit?: boolean, showDegree?: boolean }) {
   const [currentValue, setCurrentValue] = useState(0);
@@ -232,16 +232,30 @@ export default function App() {
           </main>
 
           {/* Footer Recommendation Bar */}
-          <footer className="bg-slate-900 text-white p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-center z-20 relative w-full shrink-0 mt-auto shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-            <div className="flex items-center gap-4 sm:gap-6 w-full max-w-5xl mx-auto justify-center">
-              <div className="bg-orange-500 p-3 sm:p-4 rounded-2xl rotate-3 shrink-0 hidden sm:block">
-                <Thermometer size={28} className="text-white drop-shadow" />
+          <footer className="bg-slate-900 text-white p-4 sm:p-6 flex flex-col items-center justify-center z-20 relative w-full shrink-0 mt-auto shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-5xl mx-auto justify-between text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 flex-1 min-w-0">
+                <div className="bg-orange-500 p-3 sm:p-4 rounded-2xl rotate-3 shrink-0 hidden sm:block">
+                  <Thermometer size={28} className="text-white drop-shadow" />
+                </div>
+                <div className="overflow-hidden min-w-0">
+                  <p className="text-lg sm:text-2xl lg:text-3xl font-black leading-tight uppercase truncate">
+                    Verdict: {Math.abs(data.today.sameHourTemp - data.yesterday.sameHourTemp) < 1 ? "Basically the same" : data.today.sameHourTemp > data.yesterday.sameHourTemp ? "Warmer" : "Colder"}
+                  </p>
+                  <p className="text-slate-400 font-bold uppercase tracking-wide text-sm sm:text-base mt-1 whitespace-normal sm:truncate text-ellipsis">{analysisText}</p>
+                </div>
               </div>
-              <div className="overflow-hidden text-center sm:text-left">
-                <p className="text-lg sm:text-2xl lg:text-3xl font-black leading-tight uppercase truncate">
-                  Verdict: {Math.abs(data.today.sameHourTemp - data.yesterday.sameHourTemp) < 1 ? "Basically the same" : data.today.sameHourTemp > data.yesterday.sameHourTemp ? "Warmer" : "Colder"}
-                </p>
-                <p className="text-slate-400 font-bold uppercase tracking-wide text-sm sm:text-base mt-1 whitespace-normal sm:truncate text-ellipsis">{analysisText}</p>
+              
+              <div className="flex items-center justify-center sm:justify-end gap-3 text-white/60 text-xs sm:text-sm mt-3 sm:mt-0 shrink-0">
+                <span>Built by Hyelin Lee</span>
+                <a href="https://www.linkedin.com/in/hyelinlee09/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn Profile">
+                  <Linkedin size={16} />
+                </a>
+                <a href="https://x.com/HyelinLeeHere" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="X (Twitter) Profile">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                  </svg>
+                </a>
               </div>
             </div>
           </footer>
