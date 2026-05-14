@@ -1,0 +1,8 @@
+{
+  "name": "Yesterday vs Today Weather",
+  "description": "A hilariously simple weather app that compares today's weather with yesterday's to give you a relatable context for what to wear.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
